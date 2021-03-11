@@ -2,7 +2,7 @@ function getInfo() {
 
     let url = "http://the-one-api.dev/v2/character?name=" + document.getElementById("buscador").value;
 
-    let libros = "";
+    let info = "";
     const myHeaders = new Headers();
 
     myHeaders.append('Content-Type', 'application/json');
@@ -12,12 +12,12 @@ function getInfo() {
         headers: myHeaders
     }).then(function recibirRespuesta(respuesta) {
         return respuesta.json();
-    }).then(function cogerLibros(datos) {
+    }).then(function cogerInfo(datos) {
         for (let i = 0; i < datos.docs.length; i++) {
             if (typeof datos.docs[i].name !== 'undefined') {
                 console.log(i)
                 let nombre = datos.docs[i].name[0];
-                libros = libros +
+                info = info +
                     `<div class="mainSearcher">
                            <div class="card">
                            <div class="iconoCorazon">
@@ -39,7 +39,7 @@ function getInfo() {
                        </div>`;
             }
         }
-        document.getElementById("resultadosBusqueda").innerHTML = libros;
+        document.getElementById("resultadosBusqueda").innerHTML = info;
     })
         .catch(function () {
             window.alert("Error al llamar a la API");
